@@ -10,8 +10,13 @@ class Accounts extends Component {
         this.state = {};
     }
 
+
+    componentDidMount() {
+        //this.props.navigation.navigate('AccountProfile')
+    }
+
     render() {
-        const { navigate } = this.props.navigation
+        const { navigate } = this.props.navigation;
         return (
             <View
                 style={styles.container}>
@@ -19,7 +24,7 @@ class Accounts extends Component {
                 <View style={styles.profile}>
                     <Image source={userProfile} style={styles.img}/>
                 </View>
-                <TouchableOpacity style={styles.button} onPress={()=>navigate('AccountListing')}>
+                <TouchableOpacity style={styles.button} onPress={() => navigate('AccountListing')}>
                     <Text style={styles.buttonTitle}>Hesap Ekle</Text>
                 </TouchableOpacity>
             </View>

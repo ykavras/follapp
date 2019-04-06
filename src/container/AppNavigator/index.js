@@ -16,6 +16,8 @@ import FollowerIcon from '../../icons/Follower'
 import LikeIcon from '../../icons/Like'
 import CreditIcon from '../../icons/Credit'
 
+
+
 const Tabs = createBottomTabNavigator(
     {
         Accounts: {

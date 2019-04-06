@@ -15,6 +15,19 @@ export default StyleSheet.create({
         justifyContent: 'flex-end',
         zIndex: 2
     },
+    backButton: {
+        width: 30,
+        height: 30,
+        position: 'absolute',
+        left: 15,
+        top: 15,
+        zIndex: 3,
+    },
+    backButtonIcon: {
+        width: '100%',
+        height: '100%',
+        resizeMode: 'contain'
+    },
     image: {
         position: 'absolute',
         left: 0,

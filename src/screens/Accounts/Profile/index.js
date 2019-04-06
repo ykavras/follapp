@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { View, Text, Image, FlatList } from 'react-native';
+import { View, Text, Image, FlatList, TouchableOpacity } from 'react-native';
 import styles from './styles';
 import LinearGradient from 'react-native-linear-gradient';
 import { Credit } from "../../../components";
 
 const background = require('../../../assets/img/background-profile.jpg');
 const profile = require('../../../assets/img/user.png');
+import BackIcon from '../../../icons/Back'
 
 const mockData = [
     {
@@ -37,9 +38,13 @@ class Profile extends Component {
     }
 
     render() {
+        const { navigate } = this.props.navigation;
         return (
             <View style={styles.profile}>
                 <View style={styles.content}>
+                    <TouchableOpacity style={styles.backButton} onPress={()=>navigate('AccountListing')}>
+                        <BackIcon style={styles.backButtonIcon}/>
+                    </TouchableOpacity>
                     <Image source={background} style={styles.image}/>
                     <View style={styles.contentIn}>
                         <View style={styles.bottom}>
