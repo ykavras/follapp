@@ -20,7 +20,7 @@ import {
 
 export default function Credit(props) {
     return (
-        <Svg {...props} version="1.1" viewBox="0 0 512.16 512.16" x="0px" y="0px" xmlSpace="preserve">
+        <Svg fill="white" {...props} version="1.1" viewBox="0 0 512.16 512.16" x="0px" y="0px" xmlSpace="preserve">
             <G transform="translate(1 1)">
                 <G>
                     <G>

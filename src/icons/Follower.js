@@ -20,7 +20,7 @@ import {
 
 export default function Follower(props) {
     return (
-        <Svg{...props} version="1.1" viewBox="0 0 432.119 432.119" x="0px" y="0px" xmlSpace="preserve">
+        <Svg fill="white" {...props} version="1.1" viewBox="0 0 432.119 432.119" x="0px" y="0px" xmlSpace="preserve">
             <G>
                 <G>
                     <G>

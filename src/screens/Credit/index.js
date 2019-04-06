@@ -12,7 +12,7 @@ class Credit extends Component {
         const { navigate } = this.props.navigation;
         return (
             <View style={styles.container}>
-                <TouchableOpacity onPress={() => navigate('Main')}>
+                <TouchableOpacity onPress={() => navigate('Accounts')}>
                     <Text>Main</Text>
                 </TouchableOpacity>
             </View>

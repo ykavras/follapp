@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View } from 'react-native';
 import styles from './styles';
+import { Header, Account } from "../../../components/";
 
-class Main extends Component {
+class AccountsListing extends Component {
     constructor(props) {
         super(props);
         this.state = {};
@@ -12,14 +13,13 @@ class Main extends Component {
         const { navigate } = this.props.navigation;
         return (
             <View style={styles.container}>
-                <TouchableOpacity  onPress={() => navigate('Follower')}>
-                    <Text>Follower</Text>
-                </TouchableOpacity>
+                <Header backOnPress={() => navigate('Accounts')} title="Hesaplar"/>
+                <Account/>
             </View>
         );
     }
 }
 
 
-export default Main;
+export default AccountsListing;
 

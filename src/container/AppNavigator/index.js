@@ -5,8 +5,9 @@ import {
     createSwitchNavigator,
     createDrawerNavigator
 } from 'react-navigation';
-import { Main, Follower, Like, Credit } from '../../screens'
+import { Accounts, AccountListing, Follower, Like, Credit } from '../../screens'
 import React from 'react'
+import { View, TouchableOpacity } from 'react-native';
 import Drawer from '../Drawer'
 import theme from "../../lib/theme";
 import styles from './styles'
@@ -17,8 +18,8 @@ import CreditIcon from '../../icons/Credit'
 
 const Tabs = createBottomTabNavigator(
     {
-        Main: {
-            screen: Main,
+        Accounts: {
+            screen: Accounts,
             navigationOptions: {
                 tabBarIcon: ({ focused }) => (
                     focused ?
@@ -61,24 +62,56 @@ const Tabs = createBottomTabNavigator(
                 )
             }
         },
-    },
-    {
-        tabBarOptions: {
-            labelStyle: {
-                display: 'none'
-            },
-            tabStyle: {},
-            style: {
-                height: 50,
-                backgroundColor: theme.accent,
-                borderTopWidth: 0,
-            },
-            swipeEnabled: true,
+    }, {
+        tabBarComponent: (props) => {
+            const {
+                navigation: { state: { index, routes } },
+                style,
+                activeTintColor,
+                inactiveTintColor,
+                renderIcon,
+                jumpTo
+            } = props;
+            return (
+                <View style={{
+                    flexDirection: 'row',
+                    height: 60,
+                    width: '100%',
+                    ...style
+                }}>
+                    {
+                        routes.map((route, idx) => (
+                            <View
+                                key={route.key}
+                                style={{
+                                    flex: 1,
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                }}
+                            >
+                                <TouchableOpacity onPress={() => jumpTo(route.key)}>
+                                    {renderIcon({
+                                        route,
+                                        focused: index === idx,
+                                        tintColor: index === idx ? activeTintColor : inactiveTintColor
+                                    })}
+                                </TouchableOpacity>
+                            </View>
+                        ))
+                    }
+                </View>
+            );
         },
+        tabBarOptions: {
+            showLabel: false,
+            style: {
+                backgroundColor: theme.four
+            },
+        }
     }
 );
 
-const contentComponent = props => <Drawer {...props} />
+const contentComponent = props => <Drawer {...props} />;
 
 const DrawerNavigator = createDrawerNavigator(
     {
@@ -90,7 +123,7 @@ const DrawerNavigator = createDrawerNavigator(
         initialRouteName: 'app',
         contentComponent
     }
-)
+);
 
 const StackNavigator = createStackNavigator(
     {
@@ -98,19 +131,18 @@ const StackNavigator = createStackNavigator(
             screen: DrawerNavigator,
             navigationOptions: { header: null }
         },
-        Main,
+        Accounts,
+        AccountListing,
         Follower,
         Like,
-        Credit,
-    },
-    {
-        defaultNavigationOptions: {
-            headerStyle: {
-                borderBottomWidth: 0
-            }
+        Credit
+    }, {
+        headerMode: 'none',
+        navigationOptions: {
+            headerVisible: false,
         }
     }
-)
+);
 
 
 const RootNavigator = createSwitchNavigator({
