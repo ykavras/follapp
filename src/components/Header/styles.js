@@ -5,7 +5,7 @@ import theme from '../../lib/theme';
 export default StyleSheet.create({
     header: {
         width: '100%',
-        height: 60,
+        height: 100,
         backgroundColor: theme.four,
         justifyContent: 'space-between',
         flexDirection: 'row',

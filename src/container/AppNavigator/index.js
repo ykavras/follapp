@@ -5,7 +5,7 @@ import {
     createSwitchNavigator,
     createDrawerNavigator
 } from 'react-navigation';
-import { Accounts, AccountListing, Follower, Like, Credit } from '../../screens'
+import { Accounts, AccountListing, AccountProfile, Follower, Like, Credit } from '../../screens'
 import React from 'react'
 import { View, TouchableOpacity } from 'react-native';
 import Drawer from '../Drawer'
@@ -133,6 +133,7 @@ const StackNavigator = createStackNavigator(
         },
         Accounts,
         AccountListing,
+        AccountProfile,
         Follower,
         Like,
         Credit

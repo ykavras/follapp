@@ -1,11 +1,10 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import theme from '../../lib/theme';
+import theme from "../../lib/theme";
 
 export default StyleSheet.create({
-    account: {
-        width: '100%',
-        backgroundColor: theme.accent,
+    credit: {
+        backgroundColor: theme.four,
         shadowColor: theme.four,
         shadowOffset: {
             width: 0,
@@ -15,24 +14,17 @@ export default StyleSheet.create({
         shadowRadius: 4,
         elevation: 5,
         minHeight: 60,
-        alignItems: 'flex-start',
-        justifyContent: 'center',
         paddingVertical: 10,
         paddingHorizontal: 15,
-        paddingRight: 50,
         marginBottom: 20,
+        borderRadius: 10,
+        textAlign: 'center',
+        justifyContent: 'center',
     },
-    accountTitle: {
-        fontSize: 20,
-        color: theme.four,
-        width: '100%',
+    creditText: {
         fontFamily: theme.fontSemiBold,
-    },
-    check: {
-        position: 'absolute',
-        right: 15,
-        width: 20,
-        height: 20,
-        resizeMode: 'contain',
+        color: theme.accent,
+        fontSize: 20,
+        textAlign: 'center',
     },
 });

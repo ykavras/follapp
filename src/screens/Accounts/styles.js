@@ -11,11 +11,11 @@ export default StyleSheet.create({
         paddingHorizontal: 15,
     },
     profile: {
-        width: 200,
-        height: 200,
-        borderRadius: 200 / 2,
+        width: 160,
+        height: 160,
+        borderRadius: 160 / 2,
         backgroundColor: theme.accent,
-        padding: 10,
+        padding: 6,
     },
     img: {
         width: '100%',
