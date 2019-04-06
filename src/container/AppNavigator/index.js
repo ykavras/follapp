@@ -77,7 +77,7 @@ const Tabs = createBottomTabNavigator(
             return (
                 <View style={{
                     flexDirection: 'row',
-                    height: 60,
+                    height: 70,
                     width: '100%',
                     ...style
                 }}>
