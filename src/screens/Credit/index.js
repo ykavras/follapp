@@ -13,7 +13,7 @@ class Credit extends Component {
         return (
             <View style={styles.container}>
                 <TouchableOpacity onPress={() => navigate('Accounts')}>
-                    <Text>Main</Text>
+                    <Text>Go Main</Text>
                 </TouchableOpacity>
             </View>
         );

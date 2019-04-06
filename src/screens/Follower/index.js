@@ -13,7 +13,7 @@ class Follower extends Component {
         return (
             <View style={styles.container}>
                 <TouchableOpacity onPress={() => navigate('Like')}>
-                    <Text>Like</Text>
+                    <Text>Go Like</Text>
                 </TouchableOpacity>
             </View>
         );

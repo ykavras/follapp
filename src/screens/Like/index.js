@@ -13,7 +13,7 @@ class Like extends Component {
         return (
             <View style={styles.container}>
                 <TouchableOpacity onPress={() => navigate('Credit')}>
-                    <Text>Credit</Text>
+                    <Text>Go Credit</Text>
                 </TouchableOpacity>
             </View>
         );
