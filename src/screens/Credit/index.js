@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import styles from './styles';
 
 class Credit extends Component {
@@ -9,9 +9,12 @@ class Credit extends Component {
     }
 
     render() {
+        const { navigate } = this.props.navigation;
         return (
             <View style={styles.container}>
-                <Text>Credit</Text>
+                <TouchableOpacity onPress={() => navigate('Main')}>
+                    <Text>Main</Text>
+                </TouchableOpacity>
             </View>
         );
     }

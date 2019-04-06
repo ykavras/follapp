@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import styles from './styles';
 
 class Follower extends Component {
@@ -9,9 +9,12 @@ class Follower extends Component {
     }
 
     render() {
+        const { navigate } = this.props.navigation;
         return (
             <View style={styles.container}>
-                <Text>Follower</Text>
+                <TouchableOpacity onPress={() => navigate('Like')}>
+                    <Text>Like</Text>
+                </TouchableOpacity>
             </View>
         );
     }
