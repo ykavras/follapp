@@ -5,7 +5,7 @@ import {
     createSwitchNavigator,
     createDrawerNavigator
 } from 'react-navigation';
-import { Accounts, AccountListing, AccountProfile, Follower, Like, Credit } from '../../screens'
+import { Login, Register, Accounts, AccountListing, AccountProfile, Follower, Like, Credit } from '../../screens'
 import React from 'react'
 import { View, TouchableOpacity } from 'react-native';
 import Drawer from '../Drawer'
@@ -17,7 +17,6 @@ import LikeIcon from '../../icons/Like'
 import CreditIcon from '../../icons/Credit'
 
 
-
 const Tabs = createBottomTabNavigator(
     {
         Accounts: {
@@ -25,9 +24,9 @@ const Tabs = createBottomTabNavigator(
             navigationOptions: {
                 tabBarIcon: ({ focused }) => (
                     focused ?
-                        <AccountsIcon style={styles.icon}/>
+                        <AccountsIcon style={ styles.icon }/>
                         :
-                        <AccountsIcon style={[styles.icon, { opacity: 0.5 }]}/>
+                        <AccountsIcon style={ [styles.icon, { opacity: 0.5 }] }/>
                 )
             }
         },
@@ -36,9 +35,9 @@ const Tabs = createBottomTabNavigator(
             navigationOptions: {
                 tabBarIcon: ({ focused }) => (
                     focused ?
-                        <FollowerIcon style={styles.icon}/>
+                        <FollowerIcon style={ styles.icon }/>
                         :
-                        <FollowerIcon style={[styles.icon, { opacity: 0.5 }]}/>
+                        <FollowerIcon style={ [styles.icon, { opacity: 0.5 }] }/>
                 )
             }
         },
@@ -47,9 +46,9 @@ const Tabs = createBottomTabNavigator(
             navigationOptions: {
                 tabBarIcon: ({ focused }) => (
                     focused ?
-                        <LikeIcon style={styles.icon}/>
+                        <LikeIcon style={ styles.icon }/>
                         :
-                        <LikeIcon style={[styles.icon, { opacity: 0.5 }]}/>
+                        <LikeIcon style={ [styles.icon, { opacity: 0.5 }] }/>
                 )
             }
         },
@@ -58,9 +57,9 @@ const Tabs = createBottomTabNavigator(
             navigationOptions: {
                 tabBarIcon: ({ focused }) => (
                     focused ?
-                        <CreditIcon style={styles.icon}/>
+                        <CreditIcon style={ styles.icon }/>
                         :
-                        <CreditIcon style={[styles.icon, { opacity: 0.5 }]}/>
+                        <CreditIcon style={ [styles.icon, { opacity: 0.5 }] }/>
                 )
             }
         },
@@ -75,28 +74,28 @@ const Tabs = createBottomTabNavigator(
                 jumpTo
             } = props;
             return (
-                <View style={{
+                <View style={ {
                     flexDirection: 'row',
                     height: 70,
                     width: '100%',
                     ...style
-                }}>
+                } }>
                     {
                         routes.map((route, idx) => (
                             <View
-                                key={route.key}
-                                style={{
+                                key={ route.key }
+                                style={ {
                                     flex: 1,
                                     alignItems: 'center',
                                     justifyContent: 'center',
-                                }}
+                                } }
                             >
-                                <TouchableOpacity onPress={() => jumpTo(route.key)}>
-                                    {renderIcon({
+                                <TouchableOpacity onPress={ () => jumpTo(route.key) }>
+                                    { renderIcon({
                                         route,
                                         focused: index === idx,
                                         tintColor: index === idx ? activeTintColor : inactiveTintColor
-                                    })}
+                                    }) }
                                 </TouchableOpacity>
                             </View>
                         ))
@@ -113,7 +112,7 @@ const Tabs = createBottomTabNavigator(
     }
 );
 
-const contentComponent = props => <Drawer {...props} />;
+const contentComponent = props => <Drawer { ...props } />;
 
 const DrawerNavigator = createDrawerNavigator(
     {
@@ -133,12 +132,13 @@ const StackNavigator = createStackNavigator(
             screen: DrawerNavigator,
             navigationOptions: { header: null }
         },
+        Register,
         Accounts,
         AccountListing,
         AccountProfile,
         Follower,
         Like,
-        Credit
+        Credit,
     }, {
         headerMode: 'none',
         navigationOptions: {
@@ -150,8 +150,9 @@ const StackNavigator = createStackNavigator(
 
 const RootNavigator = createSwitchNavigator({
     StackNavigator,
+    Login,
 }, {
-    initialRouteName: 'StackNavigator',
+    initialRouteName: 'Login',
 });
 
 export default createAppContainer(RootNavigator)

@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { View, Image, TouchableOpacity, Text, StatusBar } from 'react-native';
+import React, {Component} from 'react';
+import {View, Image, TouchableOpacity, Text, StatusBar} from 'react-native';
 import styles from './styles';
 
 const userProfile = require('../../assets/img/user.png');
@@ -16,7 +16,7 @@ class Accounts extends Component {
     }
 
     render() {
-        const { navigate } = this.props.navigation;
+        const {navigate} = this.props.navigation;
         return (
             <View
                 style={styles.container}>
