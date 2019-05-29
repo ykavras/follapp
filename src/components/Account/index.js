@@ -16,8 +16,8 @@ export function Account(props) {
 }
 
 Account.defaultProps = {
-    account: "@Account",
-    title: "Account 1",
+    account: "",
+    title: "",
     check: false,
 };
 

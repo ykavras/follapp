@@ -1,31 +1,11 @@
 import React, { Component } from 'react';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, ActivityIndicator, Text, StatusBar } from 'react-native';
 import styles from './styles';
 import { Header, Account } from "../../../components/";
+import { connect } from 'react-redux';
+import { accountListing } from "../../../store/actions/account";
+import PropTypes from 'prop-types';
 
-const mockData = [
-    {
-        id: 1,
-        account: '@Account',
-        title: 'Account 1',
-        check: true,
-    },
-    {
-        id: 2,
-        account: '@Account',
-        title: 'Account 2'
-    },
-    {
-        id: 3,
-        account: '@Account',
-        title: 'Account 3'
-    },
-    {
-        id: 4,
-        account: '@Account',
-        title: 'Account 4'
-    }
-];
 
 class AccountsListing extends Component {
     constructor(props) {
@@ -33,20 +13,58 @@ class AccountsListing extends Component {
         this.state = {};
     }
 
+    componentDidMount() {
+        this.props.accountListing();
+    }
+
+    renderItem = (isAccountListing, accountListingErrorMessage, accountListing) => {
+        if (isAccountListing) return (
+            <View style={ styles.loadingWrapper }>
+                <ActivityIndicator color="black" size="large"/>
+            </View>
+        );
+        if (accountListingErrorMessage) {
+            for (let [key, value] of Object.entries(accountListingErrorMessage.data)) {
+                return (
+                    <View style={ styles.loadingWrapper }>
+                        <Text style={ styles.errorMessage }>{ key } : { value }</Text>
+                    </View>
+                )
+            }
+        }
+        if (accountListing) {
+            return (
+                <FlatList contentContainerStyle={ styles.accountList } data={ accountListing }
+                          renderItem={ ({ item }) =>
+                              <Account title={ item.username } check={ item.check }/> }/>
+            )
+        }
+    };
+
     render() {
         const { navigate } = this.props.navigation;
+        const { isAccountListing, accountListingErrorMessage, accountListing } = this.props.accountListingToProps;
         return (
-            <View style={styles.container}>
-                <Header backOnPress={() => navigate('Accounts')} title="Hesaplar"/>
-                <FlatList style={styles.accountList} data={mockData}
-                          renderItem={({ item }) => <Account onPress={() => navigate('AccountProfile')} account={item.account}
-                                                             title={item.title}
-                                                             check={item.check}/>}/>
+            <View style={ styles.container }>
+                <StatusBar hidden/>
+                <Header backOnPress={ () => navigate('Accounts') } title="Hesaplar"/>
+                { this.renderItem(isAccountListing, accountListingErrorMessage, accountListing) }
             </View>
         );
     }
 }
 
+AccountsListing.propTypes = {
+    accountListing: PropTypes.func.isRequired,
+    accountListingToProps: PropTypes.object.isRequired,
+};
 
-export default AccountsListing;
+const mapStateToProps = state => {
+    return {
+        accountListingToProps: state.accountReducer,
+    }
+};
+
+export default connect(mapStateToProps, { accountListing })(AccountsListing)
+
 

@@ -14,7 +14,7 @@ axiosInstance.defaults.headers.common['Content-Type'] = 'application/json';
 axiosInstance.interceptors.request.use((config) => {
     const { token } = store.getState().loginReducer;
     console.log('REQUEST : ', config);
-    //config.headers.Authorization = `JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImFkbWluIiwiZXhwIjoxNTkwNjIzNzI0LCJlbWFpbCI6ImVtb3R5ODhAZ21haWwuY29tIiwib3JpZ19pYXQiOjE1NTkwODc3MjR9.Ac4GkRKg-4HTieE9wfQM2t8XUe2mUaJiYAcNw1to9dQ`
+    config.headers.Authorization = `JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImFkbWluIiwiZXhwIjoxNTkwNjk5NTM2LCJlbWFpbCI6ImVtb3R5ODhAZ21haWwuY29tIiwib3JpZ19pYXQiOjE1NTkxNjM1MzZ9.wTYjNF7DUaIA1__RkKmWqoBhbZ8_9qDyzhxVZLJPPks`
     if (token != null && config != null) {
         config.headers.Authorization = `JWT ${ token }`;
     }
