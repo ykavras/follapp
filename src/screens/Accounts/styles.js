@@ -12,17 +12,12 @@ export default StyleSheet.create({
         alignItems: 'center',
         paddingHorizontal: 15,
     },
-    profile: {
-        width: 160,
-        height: 160,
-        borderRadius: 160 / 2,
-        backgroundColor: theme.accent,
-        padding: 6,
-    },
-    img: {
-        width: '100%',
-        height: '100%',
-        resizeMode: 'cover',
+    pageTitle: {
+        fontSize: 30,
+        fontFamily: theme.fontSemiBold,
+        color: theme.accent,
+        textAlign: 'center',
+        marginBottom: 20,
     },
     button: {
         width: '100%',
@@ -35,9 +30,35 @@ export default StyleSheet.create({
         borderColor: theme.accent,
     },
     buttonTitle: {
-        fontSize: 18,
-        fontWeight: 'bold',
+        fontSize: 16,
+        fontFamily: theme.fontSemiBold,
         color: theme.accent,
         textAlign: 'center',
+    },
+    inputBox: {
+        width: '100%',
+        borderRadius: 10,
+        overflow: 'hidden',
+        backgroundColor: theme.accent,
+        color: 'black'
+    },
+    input: {
+        backgroundColor: theme.accent,
+        padding: 14,
+        fontSize: 14,
+        fontFamily: theme.fontSemiBold
+    },
+    loading: {
+        marginTop: 40,
+    },
+    successText: {
+        textAlign: 'center',
+        marginTop: 40,
+        fontSize: 14,
+        fontFamily: theme.fontSemiBold,
+        color: theme.accent
+    },
+    successTextErr: {
+        color: theme.primary,
     },
 });

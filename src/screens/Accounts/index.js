@@ -1,37 +1,75 @@
-import React, {Component} from 'react';
-import {View, Image, TouchableOpacity, Text, StatusBar} from 'react-native';
+import React, { Component } from 'react';
+import { View, TouchableOpacity, Text, StatusBar, TextInput, ActivityIndicator } from 'react-native';
 import styles from './styles';
-
-const userProfile = require('../../assets/img/user.png');
+import { connect } from 'react-redux';
+import { accountAdded } from "../../store/actions/account";
+import PropTypes from 'prop-types';
 
 class Accounts extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            username: '',
+        };
     }
 
 
     componentDidMount() {
-        //this.props.navigation.navigate('AccountProfile')
+
     }
 
+    accountAdded = async () => {
+        try {
+            await this.props.accountAdded(this.state.username)
+        } catch (e) {
+            console.log(error)
+        }
+    };
+
+    renderItem = (isAccount, accountMessage, account) => {
+        if (isAccount) {
+            return (<ActivityIndicator style={ styles.loading } color="white"/>)
+        }
+        if (account) {
+            return (<Text style={ styles.successText }>Kullanıcı Başarı ile eklenmiştir.</Text>)
+        }
+        if (accountMessage) {
+            for (let [key, value] of Object.entries(accountMessage.data)) {
+                return (<Text style={ [styles.successText, styles.successTextErr] }>{ key } : { value }</Text>)
+            }
+        }
+    };
+
     render() {
-        const {navigate} = this.props.navigation;
+        const { navigate } = this.props.navigation;
+        const { isAccount, accountMessage, account } = this.props.accountAddedToProps;
         return (
-            <View
-                style={styles.container}>
+            <View style={ styles.container }>
                 <StatusBar hidden/>
-                <View style={styles.profile}>
-                    <Image source={userProfile} style={styles.img}/>
+                <Text style={ styles.pageTitle }>Kullanıcı Ekle</Text>
+                <View style={ styles.inputBox }>
+                    <TextInput onChangeText={ (text) => this.setState({ username: text }) }
+                               style={ styles.input } placeholder="Kullanıcı Adı" placeholderTextColor="black"/>
                 </View>
-                <TouchableOpacity style={styles.button} onPress={() => navigate('AccountListing')}>
-                    <Text style={styles.buttonTitle}>Hesap Ekle</Text>
+                { this.renderItem(isAccount, accountMessage, account) }
+                <TouchableOpacity style={ styles.button } onPress={ this.accountAdded.bind(this) }>
+                    <Text style={ styles.buttonTitle }>Hesap Ekle</Text>
                 </TouchableOpacity>
             </View>
         );
     }
 }
 
+Accounts.propTypes = {
+    accountAdded: PropTypes.func.isRequired,
+    accountAddedToProps: PropTypes.object.isRequired,
+};
 
-export default Accounts;
+const mapStateToProps = state => {
+    return {
+        accountAddedToProps: state.accountReducer,
+    }
+};
+
+export default connect(mapStateToProps, { accountAdded })(Accounts)
 
