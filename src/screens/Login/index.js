@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StatusBar, ActivityIndicator } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StatusBar, ActivityIndicator, Animated, Easing } from 'react-native';
 import styles from './styles.js';
 import RightArrowIcon from '../../assets/icons/RightArrow';
 import UserIcon from '../../assets/icons/User';
@@ -14,7 +14,16 @@ class Login extends Component {
         this.state = {
             username: '',
             password: '',
+            right: new Animated.Value(30),
         };
+    }
+
+    animated = (state, value) => {
+        Animated.timing(state, { toValue: value, duration: 1000, easing: Easing.elastic() }).start()
+    };
+
+    componentWillMount() {
+        this.animated(this.state.right, -30);
     }
 
     goLogin = async () => {
@@ -42,6 +51,7 @@ class Login extends Component {
 
     render() {
         const { navigate } = this.props.navigation;
+        const { right } = this.state;
         const { isLogin, loginErrorMessage, login } = this.props.loginToProps;
         return (
             <View style={ styles.container }>
@@ -67,9 +77,11 @@ class Login extends Component {
                                    onChangeText={ (text) => this.setState({ password: text }) }
                         />
                     </View>
-                    <TouchableOpacity style={ styles.button } onPress={ this.goLogin.bind(this) }>
-                        <RightArrowIcon fill="white" style={ styles.buttonIcon }/>
-                    </TouchableOpacity>
+                    <Animated.View style={ [styles.button, { right: right }] }>
+                        <TouchableOpacity style={ styles.buttonIn } onPress={ this.goLogin.bind(this) }>
+                            <RightArrowIcon fill="white" style={ styles.buttonIcon }/>
+                        </TouchableOpacity>
+                    </Animated.View>
                 </View>
                 { this.renderItem(isLogin, loginErrorMessage, login) }
                 <TouchableOpacity style={ styles.goButton } onPress={ () => navigate('Register') }>

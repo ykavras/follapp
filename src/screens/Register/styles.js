@@ -58,19 +58,12 @@ export default StyleSheet.create({
     },
     button: {
         position: 'absolute',
-        right: -30,
         width: 60,
         height: 60,
-        borderRadius: 60 / 2,
         backgroundColor: theme.four,
-        shadowColor: theme.four,
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 1,
-        shadowRadius: 6,
-        elevation: 10,
+        borderRadius: 60 / 2,
+    },
+    buttonIn: {
         padding: 18,
     },
     buttonIcon: {

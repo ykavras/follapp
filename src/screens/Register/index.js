@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StatusBar, ActivityIndicator } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StatusBar, ActivityIndicator, Animated, Easing } from 'react-native';
 import styles from './styles.js';
 import CheckedIcon from '../../assets/icons/Checked';
 import UserIcon from '../../assets/icons/User';
@@ -16,7 +16,16 @@ class Register extends Component {
             username: '',
             email: '',
             password: '',
+            right: new Animated.Value(30),
         };
+    }
+
+    animated = (state, value) => {
+        Animated.timing(state, { toValue: value, duration: 1000, easing: Easing.elastic() }).start()
+    };
+
+    componentWillMount() {
+        this.animated(this.state.right, -30);
     }
 
     goRegister = async () => {
@@ -44,6 +53,7 @@ class Register extends Component {
 
     render() {
         const { navigate } = this.props.navigation;
+        const { right } = this.state;
         const { isRegister, registerErrorMessage, register } = this.props.registerToProps;
         return (
             <View style={ styles.container }>
@@ -77,9 +87,11 @@ class Register extends Component {
                                    onChangeText={ (text) => this.setState({ email: text }) }
                         />
                     </View>
-                    <TouchableOpacity style={ styles.button } onPress={ this.goRegister.bind(this) }>
-                        <CheckedIcon fill="white" style={ styles.buttonIcon }/>
-                    </TouchableOpacity>
+                    <Animated.View style={ [styles.button, { right: right }] }>
+                        <TouchableOpacity style={ styles.buttonIn } onPress={ this.goRegister.bind(this) }>
+                            <CheckedIcon fill="white" style={ styles.buttonIcon }/>
+                        </TouchableOpacity>
+                    </Animated.View>
                 </View>
                 { this.renderItem(isRegister, registerErrorMessage, register) }
                 <TouchableOpacity style={ styles.goButton } onPress={ () => navigate('Login') }>
