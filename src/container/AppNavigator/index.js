@@ -150,9 +150,9 @@ const StackNavigator = createStackNavigator(
 
 const RootNavigator = createSwitchNavigator({
     StackNavigator,
-    Accounts
+    Login
 }, {
-    initialRouteName: 'Accounts',
+    initialRouteName: 'Login',
 });
 
 export default createAppContainer(RootNavigator)

@@ -26,15 +26,15 @@ class Accounts extends Component {
         }
     };
 
-    renderItem = (isAccount, accountMessage, account) => {
+    renderItem = (isAccount, accountErrorMessage, account) => {
         if (isAccount) {
             return (<ActivityIndicator style={ styles.loading } color="white"/>)
         }
         if (account) {
             return (<Text style={ styles.successText }>Kullanıcı Başarı ile eklenmiştir.</Text>)
         }
-        if (accountMessage) {
-            for (let [key, value] of Object.entries(accountMessage.data)) {
+        if (accountErrorMessage) {
+            for (let [key, value] of Object.entries(accountErrorMessage.data)) {
                 return (<Text style={ [styles.successText, styles.successTextErr] }>{ key } : { value }</Text>)
             }
         }
@@ -42,7 +42,7 @@ class Accounts extends Component {
 
     render() {
         const { navigate } = this.props.navigation;
-        const { isAccount, accountMessage, account } = this.props.accountAddedToProps;
+        const { isAccount, accountErrorMessage, account } = this.props.accountAddedToProps;
         return (
             <View style={ styles.container }>
                 <StatusBar hidden/>
@@ -51,7 +51,7 @@ class Accounts extends Component {
                     <TextInput onChangeText={ (text) => this.setState({ username: text }) }
                                style={ styles.input } placeholder="Kullanıcı Adı" placeholderTextColor="black"/>
                 </View>
-                { this.renderItem(isAccount, accountMessage, account) }
+                { this.renderItem(isAccount, accountErrorMessage, account) }
                 <TouchableOpacity style={ styles.button } onPress={ this.accountAdded.bind(this) }>
                     <Text style={ styles.buttonTitle }>Hesap Ekle</Text>
                 </TouchableOpacity>

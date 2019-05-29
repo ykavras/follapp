@@ -12,12 +12,12 @@ const axiosInstance = axios.create({
 axiosInstance.defaults.headers.common['Content-Type'] = 'application/json';
 
 axiosInstance.interceptors.request.use((config) => {
-    //const { token } = store.getState().loginReducer;
+    const { token } = store.getState().loginReducer;
     console.log('REQUEST : ', config);
-    config.headers.Authorization = `JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImFkbWluIiwiZXhwIjoxNTkwNjIzNzI0LCJlbWFpbCI6ImVtb3R5ODhAZ21haWwuY29tIiwib3JpZ19pYXQiOjE1NTkwODc3MjR9.Ac4GkRKg-4HTieE9wfQM2t8XUe2mUaJiYAcNw1to9dQ`
-    //if (token != null && config != null) {
-    //    config.headers.Authorization = `JWT ${ token }`
-    //}
+    //config.headers.Authorization = `JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImFkbWluIiwiZXhwIjoxNTkwNjIzNzI0LCJlbWFpbCI6ImVtb3R5ODhAZ21haWwuY29tIiwib3JpZ19pYXQiOjE1NTkwODc3MjR9.Ac4GkRKg-4HTieE9wfQM2t8XUe2mUaJiYAcNw1to9dQ`
+    if (token != null && config != null) {
+        config.headers.Authorization = `JWT ${ token }`;
+    }
     return config
 }, (err) => Promise.reject(err));
 
