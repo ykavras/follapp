@@ -111,4 +111,17 @@ export default StyleSheet.create({
         paddingVertical: 14,
         paddingHorizontal: 30,
     },
+    loading: {
+        marginTop: 40,
+    },
+    successText: {
+        textAlign: 'center',
+        marginTop: 40,
+        fontSize: 14,
+        fontFamily: theme.fontSemiBold,
+        color: theme.accent
+    },
+    successTextErr: {
+        color: theme.primary,
+    },
 });

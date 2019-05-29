@@ -132,6 +132,7 @@ const StackNavigator = createStackNavigator(
             screen: DrawerNavigator,
             navigationOptions: { header: null }
         },
+        Login,
         Register,
         Accounts,
         AccountListing,
