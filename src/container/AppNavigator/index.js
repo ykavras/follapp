@@ -144,7 +144,7 @@ const StackNavigator = createStackNavigator(
         headerMode: 'none',
         navigationOptions: {
             headerVisible: false,
-        },
+        }
     }
 );
 
