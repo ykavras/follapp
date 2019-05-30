@@ -5,6 +5,9 @@ import {
     ACCOUNT_LISTING_REQUEST,
     ACCOUNT_LISTING_SUCCESS,
     ACCOUNT_LISTING_FAILURE,
+    GET_ACCOUNT_REQUEST,
+    GET_ACCOUNT_SUCCESS,
+    GET_ACCOUNT_FAILURE,
 } from "./types";
 import api from '../../lib/api';
 
@@ -37,6 +40,19 @@ export const accountListing = () => {
             dispatch(fetchingPeopleSuccess(ACCOUNT_LISTING_SUCCESS, payload));
         } catch (error) {
             dispatch(fetchingPeopleFailure(ACCOUNT_LISTING_FAILURE, error.response));
+        }
+    }
+};
+
+export const getAccount = (id) => {
+    return async dispatch => {
+        dispatch(fetchingPeopleRequest(GET_ACCOUNT_REQUEST));
+        try {
+            const response = await api.get('/ig_accounts/' + id + '/',);
+            const payload = await response.data;
+            dispatch(fetchingPeopleSuccess(GET_ACCOUNT_SUCCESS, payload));
+        } catch (error) {
+            dispatch(fetchingPeopleFailure(GET_ACCOUNT_FAILURE, error.response));
         }
     }
 };

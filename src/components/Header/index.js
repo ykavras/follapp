@@ -9,7 +9,7 @@ export function Header(props) {
     return (
         <View style={styles.header}>
             <TouchableOpacity style={styles.button} onPress={backOnPress}>
-                <BackIcon style={styles.buttonIcon}/>
+                <BackIcon fill="white" style={styles.buttonIcon}/>
             </TouchableOpacity>
             <View style={styles.title}>
                 <Text style={styles.titleText}>{title}</Text>

@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import { accountListing } from "../../../store/actions/account";
 import PropTypes from 'prop-types';
 
-
 class AccountsListing extends Component {
     constructor(props) {
         super(props);
@@ -33,10 +32,16 @@ class AccountsListing extends Component {
             }
         }
         if (accountListing) {
+            const { navigate } = this.props.navigation;
             return (
-                <FlatList contentContainerStyle={ styles.accountList } data={ accountListing }
-                          renderItem={ ({ item }) =>
-                              <Account title={ item.username } check={ item.check }/> }/>
+                <FlatList contentContainerStyle={ styles.accountList }
+                          data={ accountListing }
+                          keyExtractor={ (item) => 'profile_' + item.id }
+                          renderItem={ ({ item }) => (
+                              <Account title={ item.username } check={ item.check }
+                                                               onPress={ () =>
+                                                                   navigate('AccountProfile', { detailID: item.id }) }
+                          />) }/>
             )
         }
     };
@@ -47,7 +52,9 @@ class AccountsListing extends Component {
         return (
             <View style={ styles.container }>
                 <StatusBar hidden/>
-                <Header backOnPress={ () => navigate('Accounts') } title="Hesaplar"/>
+                <Header backOnPress={ () => navigate('Accounts') } title="Hesaplar"
+                        accountOnPress={ () => navigate('Accounts') }
+                />
                 { this.renderItem(isAccountListing, accountListingErrorMessage, accountListing) }
             </View>
         );

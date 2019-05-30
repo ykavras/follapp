@@ -1,77 +1,74 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import theme from '../../../lib/theme'
+import { StyleSheet, Dimensions } from 'react-native';
+import theme from '../../../lib/theme';
+
+const { width, height } = Dimensions.get('window');
 
 export default StyleSheet.create({
-    profile: {
+    container: {
         flex: 1,
+        backgroundColor: '#DCDFE7'
     },
-    content: {
-        zIndex: 1,
+    flatList: {
+        paddingTop: 35,
+        paddingHorizontal: 15,
     },
-    contentIn: {
-        minHeight: 140,
-        alignItems: 'flex-start',
+    header: {
+        height: height / 3.5,
+        backgroundColor: theme.four,
+        borderBottomLeftRadius: 20,
+        borderBottomRightRadius: 20,
         justifyContent: 'flex-end',
-        zIndex: 2
+        paddingHorizontal: 20,
     },
     backButton: {
+        position: 'absolute',
+        left: 20,
+        top: 20,
         width: 30,
         height: 30,
-        position: 'absolute',
-        left: 15,
-        top: 15,
-        zIndex: 3,
     },
     backButtonIcon: {
         width: '100%',
         height: '100%',
         resizeMode: 'contain'
     },
-    image: {
-        position: 'absolute',
-        left: 0,
-        top: 0,
-        right: 0,
-        bottom: 0,
-        width: '100%',
-        height: '100%',
-        resizeMode: 'cover',
-    },
-    bottom: {
-        top: 20,
-        paddingHorizontal: 15,
+    headerContent: {
         flexDirection: 'row',
+        justifyContent: 'space-between',
         alignItems: 'center',
-        flexWrap: 'wrap',
     },
-    user: {
-        width: 80,
-        height: 80,
+    profileImage: {
+        width: 100,
+        height: 140,
         resizeMode: 'cover',
-        borderWidth: 4,
-        borderColor: theme.accent,
-        borderRadius: 80 / 2,
+        borderRadius: 20,
+        bottom: -20,
     },
-    contentTitle: {
-        fontFamily: theme.fontSemiBold,
-        color: theme.accent,
-        fontSize: 16,
-        paddingLeft: 10,
+    headerInfo: {
         flex: 1,
+        paddingLeft: 20,
     },
-    color: {
-        position: 'absolute',
-        left: 0,
-        top: 0,
-        right: 0,
-        bottom: 0,
-        width: '100%',
-        height: '100%',
-        zIndex: 1
+    username: {
+        color: '#DCDFE4',
+        fontSize: 20,
+        fontFamily: theme.fontSemiBold,
     },
-    flatList: {
-        paddingTop: 35,
-        paddingHorizontal: 15,
-    }
+    bio: {
+        color: '#DCDFE4',
+        fontSize: 14,
+        fontFamily: theme.fontMedium,
+    },
+    loadingWrapper: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    errorMessage: {
+        paddingHorizontal: 4,
+        fontSize: 14,
+        textAlign: 'center',
+        color: theme.four,
+        fontFamily: theme.fontSemiBold
+    },
 });

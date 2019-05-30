@@ -3,12 +3,10 @@ import {
     createAppContainer,
     createBottomTabNavigator,
     createSwitchNavigator,
-    createDrawerNavigator
 } from 'react-navigation';
 import { Login, Register, Accounts, AccountListing, AccountProfile, Follower, Like, Credit } from '../../screens'
 import React from 'react'
 import { View, TouchableOpacity } from 'react-native';
-import Drawer from '../Drawer'
 import theme from "../../lib/theme";
 import styles from './styles'
 import AccountsIcon from '../../icons/Accounts'
@@ -112,30 +110,16 @@ const Tabs = createBottomTabNavigator(
     }
 );
 
-const contentComponent = props => <Drawer { ...props } />;
-
-const DrawerNavigator = createDrawerNavigator(
-    {
-        app: { screen: Tabs }
-    },
-    {
-        drawerWidth: 300,
-        drawerBackgroundColor: 'transparent',
-        initialRouteName: 'app',
-        contentComponent
-    }
-);
 
 const StackNavigator = createStackNavigator(
     {
         subNavigator: {
-            screen: DrawerNavigator,
+            screen: Tabs,
             navigationOptions: { header: null }
         },
         Login,
         Register,
         Accounts,
-        AccountListing,
         AccountProfile,
         Follower,
         Like,
@@ -151,7 +135,7 @@ const StackNavigator = createStackNavigator(
 
 const RootNavigator = createSwitchNavigator({
     StackNavigator,
-    AccountListing
+    AccountListing,
 }, {
     initialRouteName: 'AccountListing',
 });

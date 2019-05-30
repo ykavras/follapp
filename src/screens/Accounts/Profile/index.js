@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { View, Text, Image, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, Image, FlatList, TouchableOpacity, ActivityIndicator } from 'react-native';
 import styles from './styles';
-import LinearGradient from 'react-native-linear-gradient';
 import { Credit } from "../../../components";
 
 const background = require('../../../assets/img/background-profile.jpg');
-const profile = require('../../../assets/img/user.png');
 import BackIcon from '../../../icons/Back'
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { getAccount } from "../../../store/actions/account";
 
 const mockData = [
     {
@@ -31,37 +32,81 @@ const mockData = [
     },
 ];
 
-class Profile extends Component {
+class AccountProfile extends Component {
     constructor(props) {
         super(props);
         this.state = {};
     }
 
-    render() {
-        const { navigate } = this.props.navigation;
-        return (
-            <View style={styles.profile}>
-                <View style={styles.content}>
-                    <TouchableOpacity style={styles.backButton} onPress={()=>navigate('AccountListing')}>
-                        <BackIcon style={styles.backButtonIcon}/>
+    componentDidMount() {
+        const { detailID } = this.props.navigation.state.params;
+        this.props.getAccount(detailID);
+    }
+
+
+    renderHeader = (isGetAccount, getAccountErrorMessage, getAccount) => {
+        console.log(isGetAccount, getAccountErrorMessage, getAccount)
+        if (isGetAccount) return (
+            <View style={ styles.loadingWrapper }>
+                <ActivityIndicator color="black" size="large"/>
+            </View>
+        );
+        if (getAccountErrorMessage) {
+            for (let [key, value] of Object.entries(getAccountErrorMessage.data)) {
+                return (
+                    <View style={ styles.loadingWrapper }>
+                        <Text style={ styles.errorMessage }>{ key } : { value }</Text>
+                    </View>
+                )
+            }
+        }
+        if (getAccount) {
+            const { navigate } = this.props.navigation;
+            return (
+                <View style={ styles.header }>
+                    <TouchableOpacity style={ styles.backButton } onPress={ () => navigate('AccountListing') }>
+                        <BackIcon fill="white" style={ styles.backButtonIcon }/>
                     </TouchableOpacity>
-                    <Image source={background} style={styles.image}/>
-                    <View style={styles.contentIn}>
-                        <View style={styles.bottom}>
-                            <Image source={profile} style={styles.user}/>
-                            <Text style={styles.contentTitle}>Aktif Hesap Bilgileri</Text>
+                    <View style={ styles.headerContent }>
+                        <Image source={ background } style={ styles.profileImage }/>
+                        <View style={ styles.headerInfo }>
+                            <Text style={ styles.username }>{ getAccount.username }</Text>
+                            <Text style={ styles.bio }>{ getAccount.bio }</Text>
                         </View>
                     </View>
-                    <LinearGradient colors={['rgba(0,0,0,0.8)', '#002C3E']} style={styles.color}/>
                 </View>
-                <FlatList contentContainerStyle={styles.flatList} data={mockData}
-                          renderItem={({ item }) => (<Credit follower={item.follower}
-                                                             credit={item.credit}/>)}/>
+            )
+        }
+    };
+
+    render() {
+        const { isGetAccount, getAccountErrorMessage, getAccount } = this.props.getAccountToProps;
+        return (
+            <View style={ styles.container }>
+                { this.renderHeader(isGetAccount, getAccountErrorMessage, getAccount) }
+                <FlatList contentContainerStyle={ styles.flatList }
+                          data={ mockData }
+                          keyExtractor={ (item) => 'credit_' + item.id }
+                          renderItem={ ({ item }) => (
+                              <Credit follower={ item.follower } credit={ item.credit }/>
+                          ) }/>
             </View>
         );
     }
 }
 
 
-export default Profile;
+AccountProfile.propTypes = {
+    getAccount: PropTypes.func.isRequired,
+    getAccountToProps: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = state => {
+    return {
+        getAccountToProps: state.accountReducer,
+    }
+};
+
+export default connect(mapStateToProps, { getAccount })(AccountProfile)
+
 
