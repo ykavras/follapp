@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { View, FlatList, ActivityIndicator, Text, StatusBar } from 'react-native';
+import { View, FlatList, ActivityIndicator, Text, StatusBar, TouchableOpacity } from 'react-native';
 import styles from './styles';
-import { Header, Account } from "../../../components/";
+import { Account } from "../../../components/";
 import { connect } from 'react-redux';
 import { accountListingFunc } from "../../../store/actions/account";
 import { defaultAccountAdded } from "../../../store/actions/account";
 import PropTypes from 'prop-types';
+import PlusIcon from "../../../icons/Plus";
 
 class AccountsListing extends Component {
     constructor(props) {
@@ -35,14 +36,16 @@ class AccountsListing extends Component {
         if (accountListing) {
             const { navigate } = this.props.navigation;
             return (
-                <FlatList contentContainerStyle={ styles.accountList }
-                          data={ accountListing }
-                          keyExtractor={ (item) => 'profile_' + item.id }
-                          renderItem={ ({ item }) => (
-                              <Account title={ item.username } check={ item.check }
-                                       onPress={ () =>
-                                           navigate('AccountProfile', { detailID: item.id }) }
-                              />) }/>
+                <FlatList
+                    showsVerticalScrollIndicator={ false }
+                    contentContainerStyle={ styles.accountList }
+                    data={ accountListing }
+                    keyExtractor={ (item) => 'profile_' + item.id }
+                    renderItem={ ({ item }) => (
+                        <Account title={ item.username } check={ item.check }
+                                 onPress={ () =>
+                                     navigate('AccountProfile', { detailID: item.id }) }
+                        />) }/>
             )
         }
     };
@@ -53,9 +56,11 @@ class AccountsListing extends Component {
         return (
             <View style={ styles.container }>
                 <StatusBar hidden/>
-                <Header backOnPress={ () => navigate('Accounts') } title="Hesaplar"
-                        accountOnPress={ () => navigate('Accounts') }
-                />
+                <TouchableOpacity style={ styles.button } onPress={ () => navigate('Accounts') }>
+                    <PlusIcon fill="white" style={ styles.buttonIcon }/>
+                </TouchableOpacity>
+                <View style={ [styles.line, styles.lineTop] }/>
+                <View style={ [styles.line, styles.lineBottom] }/>
                 { this.renderItem(isAccountListing, accountListingErrorMessage, accountListing) }
             </View>
         );

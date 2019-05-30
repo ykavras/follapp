@@ -117,7 +117,6 @@ const StackNavigator = createStackNavigator(
             screen: Tabs,
             navigationOptions: { header: null }
         },
-        AccountListing,
         AccountProfile,
     }, {
         headerMode: 'none',
@@ -130,9 +129,9 @@ const StackNavigator = createStackNavigator(
 
 const RootNavigator = createSwitchNavigator({
     StackNavigator,
-    Accounts
+    AccountListing
 }, {
-    initialRouteName: 'Accounts',
+    initialRouteName: 'AccountListing',
 });
 
 export default createAppContainer(RootNavigator)
