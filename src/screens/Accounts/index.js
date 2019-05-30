@@ -2,27 +2,29 @@ import React, { Component } from 'react';
 import { View, TouchableOpacity, Text, StatusBar, TextInput, ActivityIndicator } from 'react-native';
 import styles from './styles';
 import { connect } from 'react-redux';
-import { accountAdded } from "../../store/actions/account";
+import { accountAdded, usernameChanged } from "../../store/actions/account";
+import { loginDefault } from "../../store/actions/login";
 import PropTypes from 'prop-types';
 
 class Accounts extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            username: '',
-        };
+    componentDidMount() {
+        this.props.loginDefault();
     }
+
+    onUsernameChanged = (text) => {
+        this.props.usernameChanged(text);
+    };
 
     accountAdded = async () => {
         try {
-            await this.props.accountAdded(this.state.username)
+            const { username } = await this.props.accountAddedToProps;
+            await this.props.accountAdded(username)
         } catch (e) {
             console.log(error)
         }
     };
 
     renderItem = (isAccount, accountErrorMessage, account) => {
-        console.log(isAccount, accountErrorMessage, account);
         if (isAccount) {
             return (<ActivityIndicator style={ styles.loading } color="white"/>)
         }
@@ -42,10 +44,10 @@ class Accounts extends Component {
         return (
             <View style={ styles.container }>
                 <StatusBar hidden/>
-                <Text style={ styles.pageTitle }>Kullanıcı Ekle</Text>
+                <Text style={ styles.pageTitle }>Hesap Ekle</Text>
                 <View style={ styles.inputBox }>
-                    <TextInput onChangeText={ (text) => this.setState({ username: text }) }
-                               style={ styles.input } placeholder="Kullanıcı Adı" placeholderTextColor="black"/>
+                    <TextInput onChangeText={ this.onUsernameChanged.bind(this) }
+                               style={ styles.input } placeholder="Hesap Adı" placeholderTextColor="black"/>
                 </View>
                 { this.renderItem(isAccount, accountErrorMessage, account) }
                 <TouchableOpacity style={ styles.button } onPress={ this.accountAdded.bind(this) }>
@@ -67,5 +69,5 @@ const mapStateToProps = state => {
     }
 };
 
-export default connect(mapStateToProps, { accountAdded })(Accounts)
+export default connect(mapStateToProps, { accountAdded, usernameChanged, loginDefault })(Accounts)
 

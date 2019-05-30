@@ -5,18 +5,25 @@ import RightArrowIcon from '../../assets/icons/RightArrow';
 import UserIcon from '../../assets/icons/User';
 import PasswordIcon from '../../assets/icons/Password';
 import { connect } from 'react-redux';
-import { login } from "../../store/actions/login";
+import { login, emailChanged, passwordChanged } from "../../store/actions/login";
+import { registerDefault } from "../../store/actions/register";
 import PropTypes from 'prop-types';
 
 class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: '',
-            password: '',
             right: new Animated.Value(30),
         };
     }
+
+    onEmailChanged = (text) => {
+        this.props.emailChanged(text);
+    };
+    onPasswordChanged = (text) => {
+        this.props.passwordChanged(text);
+    };
+
 
     animated = (state, value) => {
         Animated.timing(state, { toValue: value, duration: 1000, easing: Easing.elastic() }).start()
@@ -24,11 +31,13 @@ class Login extends Component {
 
     componentWillMount() {
         this.animated(this.state.right, -30);
+        this.props.registerDefault()
     }
 
     goLogin = async () => {
         try {
-            await this.props.login(this.state.username, this.state.password)
+            const { username, password } = await this.props.loginToProps;
+            await this.props.login(username, password)
         } catch (e) {
             console.log(error)
         }
@@ -65,7 +74,7 @@ class Login extends Component {
                         <TextInput placeholderTextColor="rgba(0,0,0,0.6)"
                                    placeholder="Kullanıcı Adı"
                                    style={ styles.input }
-                                   onChangeText={ (text) => this.setState({ username: text }) }
+                                   onChangeText={ this.onEmailChanged.bind(this) }
                         />
                     </View>
                     <View style={ styles.inputBox }>
@@ -74,7 +83,7 @@ class Login extends Component {
                                    placeholder="Parola"
                                    style={ styles.input }
                                    secureTextEntry
-                                   onChangeText={ (text) => this.setState({ password: text }) }
+                                   onChangeText={ this.onPasswordChanged.bind(this) }
                         />
                     </View>
                     <Animated.View style={ [styles.button, { right: right }] }>
@@ -104,4 +113,4 @@ const mapStateToProps = state => {
     }
 };
 
-export default connect(mapStateToProps, { login })(Login)
+export default connect(mapStateToProps, { login, emailChanged, passwordChanged, registerDefault })(Login)

@@ -3,17 +3,18 @@ import { View, FlatList, ActivityIndicator, Text, StatusBar } from 'react-native
 import styles from './styles';
 import { Header, Account } from "../../../components/";
 import { connect } from 'react-redux';
-import { accountListing } from "../../../store/actions/account";
+import { accountListingFunc } from "../../../store/actions/account";
+import { defaultAccountAdded } from "../../../store/actions/account";
 import PropTypes from 'prop-types';
 
 class AccountsListing extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
     }
 
     componentDidMount() {
-        this.props.accountListing();
+        this.props.accountListingFunc();
+        this.props.defaultAccountAdded();
     }
 
     renderItem = (isAccountListing, accountListingErrorMessage, accountListing) => {
@@ -39,16 +40,16 @@ class AccountsListing extends Component {
                           keyExtractor={ (item) => 'profile_' + item.id }
                           renderItem={ ({ item }) => (
                               <Account title={ item.username } check={ item.check }
-                                                               onPress={ () =>
-                                                                   navigate('AccountProfile', { detailID: item.id }) }
-                          />) }/>
+                                       onPress={ () =>
+                                           navigate('AccountProfile', { detailID: item.id }) }
+                              />) }/>
             )
         }
     };
 
     render() {
         const { navigate } = this.props.navigation;
-        const { isAccountListing, accountListingErrorMessage, accountListing } = this.props.accountListingToProps;
+        const { isAccountListing, accountListingErrorMessage, accountListing } = this.props.accountListingFuncToProps;
         return (
             <View style={ styles.container }>
                 <StatusBar hidden/>
@@ -62,16 +63,16 @@ class AccountsListing extends Component {
 }
 
 AccountsListing.propTypes = {
-    accountListing: PropTypes.func.isRequired,
-    accountListingToProps: PropTypes.object.isRequired,
+    accountListingFunc: PropTypes.func.isRequired,
+    accountListingFuncToProps: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => {
     return {
-        accountListingToProps: state.accountReducer,
+        accountListingFuncToProps: state.accountReducer,
     }
 };
 
-export default connect(mapStateToProps, { accountListing })(AccountsListing)
+export default connect(mapStateToProps, { accountListingFunc, defaultAccountAdded })(AccountsListing)
 
 
