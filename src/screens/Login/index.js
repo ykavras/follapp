@@ -8,8 +8,10 @@ import { connect } from 'react-redux';
 import { login, emailChanged, passwordChanged } from "../../store/actions/login";
 import { registerDefault } from "../../store/actions/register";
 import PropTypes from 'prop-types';
+import AsyncStorage from '@react-native-community/async-storage';
 
 class Login extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -17,13 +19,24 @@ class Login extends Component {
         };
     }
 
+    componentDidMount() {
+        //AsyncStorage.clear()
+        AsyncStorage.getItem('token').then((value) => {
+            if (value !== null) {
+                this.props.loginToProps.token = value;
+                const { navigate } = this.props.navigation;
+                return (navigate('Accounts'))
+            }
+        });
+    }
+
     onEmailChanged = (text) => {
         this.props.emailChanged(text);
     };
+
     onPasswordChanged = (text) => {
         this.props.passwordChanged(text);
     };
-
 
     animated = (state, value) => {
         Animated.timing(state, { toValue: value, duration: 1000, easing: Easing.elastic() }).start()
@@ -43,11 +56,12 @@ class Login extends Component {
         }
     };
 
-    renderItem = (isLogin, loginErrorMessage, login) => {
+    renderItem = (isLogin, loginErrorMessage, login, token) => {
         if (isLogin) {
             return (<ActivityIndicator style={ styles.loading } color="white"/>)
         }
-        if (login) {
+        if (login && token) {
+            AsyncStorage.setItem('token', login.token);
             const { navigate } = this.props.navigation;
             return (navigate('Accounts'))
         }
@@ -58,10 +72,11 @@ class Login extends Component {
         }
     };
 
+
     render() {
         const { navigate } = this.props.navigation;
         const { right } = this.state;
-        const { isLogin, loginErrorMessage, login } = this.props.loginToProps;
+        const { isLogin, loginErrorMessage, login, token } = this.props.loginToProps;
         return (
             <View style={ styles.container }>
                 <StatusBar hidden/>
@@ -92,7 +107,7 @@ class Login extends Component {
                         </TouchableOpacity>
                     </Animated.View>
                 </View>
-                { this.renderItem(isLogin, loginErrorMessage, login) }
+                { this.renderItem(isLogin, loginErrorMessage, login, token) }
                 <TouchableOpacity style={ styles.goButton } onPress={ () => navigate('Register') }>
                     <Text style={ styles.goButtonTitle }>Kayıt Ol</Text>
                 </TouchableOpacity>
@@ -100,7 +115,6 @@ class Login extends Component {
         );
     }
 }
-
 
 Login.propTypes = {
     login: PropTypes.func.isRequired,

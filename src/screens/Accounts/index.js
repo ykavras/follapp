@@ -3,13 +3,10 @@ import { View, TouchableOpacity, Text, StatusBar, TextInput, ActivityIndicator }
 import styles from './styles';
 import { connect } from 'react-redux';
 import { accountAdded, usernameChanged } from "../../store/actions/account";
-import { loginDefault } from "../../store/actions/login";
+
 import PropTypes from 'prop-types';
 
 class Accounts extends Component {
-    componentDidMount() {
-        this.props.loginDefault();
-    }
 
     onUsernameChanged = (text) => {
         this.props.usernameChanged(text);
@@ -69,5 +66,5 @@ const mapStateToProps = state => {
     }
 };
 
-export default connect(mapStateToProps, { accountAdded, usernameChanged, loginDefault })(Accounts)
+export default connect(mapStateToProps, { accountAdded, usernameChanged })(Accounts)
 

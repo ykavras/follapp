@@ -13,6 +13,7 @@ const INITIAL_STATE = {
     isLogin: false,
     loginErrorMessage: null,
     login: null,
+    token: '',
 };
 
 export default function (state = INITIAL_STATE, action) {
@@ -23,7 +24,7 @@ export default function (state = INITIAL_STATE, action) {
         case LOGIN_REQUEST:
             return { ...state, isLogin: true, loginErrorMessage: null, login: null };
         case LOGIN_SUCCESS:
-            return { ...state, isLogin: false, login: payload, username: '', password: '' };
+            return { ...state, isLogin: false, login: payload, username: '', password: '', token: payload.token };
         case LOGIN_FAILURE:
             return { ...state, isLogin: false, loginErrorMessage: payload };
         case LOGIN_USERNAME_CHANGED:

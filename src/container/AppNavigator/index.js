@@ -117,21 +117,32 @@ const StackNavigator = createStackNavigator(
             screen: Tabs,
             navigationOptions: { header: null }
         },
+        AccountListing,
         AccountProfile,
     }, {
         headerMode: 'none',
         navigationOptions: {
             headerVisible: false,
-        }
+        },
+        mode: 'modal',
+        defaultNavigationOptions: {
+            gesturesEnabled: false,
+        },
+        transitionConfig: () => ({
+            transitionSpec: {
+                duration: 0,
+            },
+        })
     }
 );
 
 
 const RootNavigator = createSwitchNavigator({
     StackNavigator,
-    AccountListing
+    Login,
+    Register
 }, {
-    initialRouteName: 'AccountListing',
+    initialRouteName: 'Login',
 });
 
 export default createAppContainer(RootNavigator)

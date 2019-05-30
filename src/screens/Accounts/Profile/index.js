@@ -45,7 +45,6 @@ class AccountProfile extends Component {
 
 
     renderHeader = (isGetAccount, getAccountErrorMessage, getAccount) => {
-        console.log(isGetAccount, getAccountErrorMessage, getAccount)
         if (isGetAccount) return (
             <View style={ styles.loadingWrapper }>
                 <ActivityIndicator color="black" size="large"/>
