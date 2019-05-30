@@ -4,7 +4,5 @@ import loginReducer from './loginReducer';
 import registerReducer from './registerReducer';
 
 export default combineReducers({
-    accountReducer,
-    loginReducer,
-    registerReducer
+    accountReducer, loginReducer, registerReducer
 })

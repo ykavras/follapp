@@ -22,7 +22,7 @@ const INITIAL_STATE = {
     getAccount: null,
 };
 
-export default (state = INITIAL_STATE, action) => {
+export default function (state = INITIAL_STATE, action) {
     const { type, payload } = action;
     switch (type) {
         case ACCOUNT_ADDED_REQUEST:
@@ -46,4 +46,4 @@ export default (state = INITIAL_STATE, action) => {
         default:
             return state;
     }
-}
+};

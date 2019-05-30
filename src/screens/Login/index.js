@@ -39,8 +39,8 @@ class Login extends Component {
             return (<ActivityIndicator style={ styles.loading } color="white"/>)
         }
         if (login) {
-            console.log(login);
-            return (<Text style={ styles.successText }>OK...</Text>)
+            const { navigate } = this.props.navigation;
+            return (navigate('Accounts'))
         }
         if (loginErrorMessage) {
             for (let [key, value] of Object.entries(loginErrorMessage.data)) {
@@ -55,7 +55,7 @@ class Login extends Component {
         const { isLogin, loginErrorMessage, login } = this.props.loginToProps;
         return (
             <View style={ styles.container }>
-                <StatusBar barStyle="dark-content"/>
+                <StatusBar hidden/>
                 <Text style={ styles.pageTitle }>Giriş Yap</Text>
                 <View style={ [styles.line, styles.lineTop] }/>
                 <View style={ [styles.line, styles.lineBottom] }/>

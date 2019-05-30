@@ -36,7 +36,7 @@ export const accountListing = () => {
         dispatch(fetchingPeopleRequest(ACCOUNT_LISTING_REQUEST));
         try {
             const response = await api.get('/ig_accounts/');
-            const payload = await response.data;
+            const payload = await response.data.reverse();
             dispatch(fetchingPeopleSuccess(ACCOUNT_LISTING_SUCCESS, payload));
         } catch (error) {
             dispatch(fetchingPeopleFailure(ACCOUNT_LISTING_FAILURE, error.response));

@@ -10,7 +10,7 @@ const INITIAL_STATE = {
     register: null,
 };
 
-export default (state = INITIAL_STATE, action) => {
+export default function (state = INITIAL_STATE, action) {
     const { type, payload } = action;
     switch (type) {
         case REGISTER_REQUEST:
@@ -22,4 +22,4 @@ export default (state = INITIAL_STATE, action) => {
         default:
             return state;
     }
-}
+};

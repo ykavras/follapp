@@ -13,11 +13,6 @@ class Accounts extends Component {
         };
     }
 
-
-    componentDidMount() {
-
-    }
-
     accountAdded = async () => {
         try {
             await this.props.accountAdded(this.state.username)
@@ -27,11 +22,13 @@ class Accounts extends Component {
     };
 
     renderItem = (isAccount, accountErrorMessage, account) => {
+        console.log(isAccount, accountErrorMessage, account);
         if (isAccount) {
             return (<ActivityIndicator style={ styles.loading } color="white"/>)
         }
         if (account) {
-            return (<Text style={ styles.successText }>Kullanıcı Başarı ile eklenmiştir.</Text>)
+            const { navigate } = this.props.navigation;
+            return (navigate('AccountListing'))
         }
         if (accountErrorMessage) {
             for (let [key, value] of Object.entries(accountErrorMessage.data)) {
@@ -41,7 +38,6 @@ class Accounts extends Component {
     };
 
     render() {
-        const { navigate } = this.props.navigation;
         const { isAccount, accountErrorMessage, account } = this.props.accountAddedToProps;
         return (
             <View style={ styles.container }>

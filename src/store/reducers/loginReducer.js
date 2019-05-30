@@ -10,7 +10,7 @@ const INITIAL_STATE = {
     login: null,
 };
 
-export default (state = INITIAL_STATE, action) => {
+export default function (state = INITIAL_STATE, action) {
     const { type, payload } = action;
     switch (type) {
         case LOGIN_REQUEST:
