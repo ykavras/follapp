@@ -62,6 +62,8 @@ export default StyleSheet.create({
         height: 60,
         backgroundColor: theme.four,
         borderRadius: 60 / 2,
+        zIndex:1,
+        elevation: 1
     },
     buttonIn: {
         padding: 18,
