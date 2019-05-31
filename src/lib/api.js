@@ -15,7 +15,8 @@ axiosInstance.interceptors.request.use((config) => {
     //config.headers.Authorization = `JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImFkbWluIiwiZXhwIjoxNTkwNjk5NTM2LCJlbWFpbCI6ImVtb3R5ODhAZ21haWwuY29tIiwib3JpZ19pYXQiOjE1NTkxNjM1MzZ9.wTYjNF7DUaIA1__RkKmWqoBhbZ8_9qDyzhxVZLJPPks`
     console.log('REQUEST : ', config);
     const { token } = store.getState().loginReducer;
-    if (token != null && config != null) {
+    if (token !== '' && config != null) {
+        console.log(token, config)
         config.headers.Authorization = `JWT ${ token }`;
     }
     return config
