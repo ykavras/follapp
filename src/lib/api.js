@@ -16,7 +16,6 @@ axiosInstance.interceptors.request.use((config) => {
     console.log('REQUEST : ', config);
     const { token } = store.getState().loginReducer;
     if (token !== '' && config != null) {
-        console.log(token, config)
         config.headers.Authorization = `JWT ${ token }`;
     }
     return config
