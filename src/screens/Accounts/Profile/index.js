@@ -47,7 +47,7 @@ class AccountProfile extends Component {
     renderHeader = (isGetAccount, getAccountErrorMessage, getAccount) => {
         if (isGetAccount) return (
             <View style={ styles.loadingWrapper }>
-                <ActivityIndicator color="black" size="large"/>
+                <ActivityIndicator color="white" size="large"/>
             </View>
         );
         if (getAccountErrorMessage) {
@@ -60,18 +60,12 @@ class AccountProfile extends Component {
             }
         }
         if (getAccount) {
-            const { navigate } = this.props.navigation;
             return (
-                <View style={ styles.header }>
-                    <TouchableOpacity style={ styles.backButton } onPress={ () => navigate('AccountListing') }>
-                        <BackIcon fill="white" style={ styles.backButtonIcon }/>
-                    </TouchableOpacity>
-                    <View style={ styles.headerContent }>
-                        <Image source={ background } style={ styles.profileImage }/>
-                        <View style={ styles.headerInfo }>
-                            <Text style={ styles.username }>{ getAccount.username }</Text>
-                            <Text style={ styles.bio }>{ getAccount.bio }</Text>
-                        </View>
+                <View style={ styles.headerContent }>
+                    <Image source={ background } style={ styles.profileImage }/>
+                    <View style={ styles.headerInfo }>
+                        <Text style={ styles.username }>{ getAccount.username }</Text>
+                        <Text style={ styles.bio }>{ getAccount.bio }</Text>
                     </View>
                 </View>
             )
@@ -79,10 +73,16 @@ class AccountProfile extends Component {
     };
 
     render() {
+        const { navigate } = this.props.navigation;
         const { isGetAccount, getAccountErrorMessage, getAccount } = this.props.getAccountToProps;
         return (
             <View style={ styles.container }>
-                { this.renderHeader(isGetAccount, getAccountErrorMessage, getAccount) }
+                <View style={ styles.header }>
+                    <TouchableOpacity style={ styles.backButton } onPress={ () => navigate('AccountListing') }>
+                        <BackIcon fill="white" style={ styles.backButtonIcon }/>
+                    </TouchableOpacity>
+                    { this.renderHeader(isGetAccount, getAccountErrorMessage, getAccount) }
+                </View>
                 <FlatList contentContainerStyle={ styles.flatList }
                           data={ mockData }
                           keyExtractor={ (item) => 'credit_' + item.id }

@@ -140,7 +140,7 @@ const StackNavigator = createStackNavigator(
 const RootNavigator = createSwitchNavigator({
     StackNavigator,
     Login,
-    Register
+    Register,
 }, {
     initialRouteName: 'Login',
 });

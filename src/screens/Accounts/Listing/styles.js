@@ -27,39 +27,34 @@ export default StyleSheet.create({
     },
     line: {
         position: 'absolute',
-        left: 0,
-        width,
+        width: width * 2,
+        left: -(width / 2),
         height: 200,
-    },
-    lineTop: {
-        top: -190,
-        height: 140,
-        zIndex: 1,
-        elevation: 1,
-        transform: [
-            { skewY: '45deg' }
-        ],
         backgroundColor: theme.four,
     },
     lineBottom: {
         bottom: -100,
         transform: [
             { skewY: '20deg' }
-        ],
-        backgroundColor: theme.four
+        ]
     },
     button: {
         position: 'absolute',
-        right: 20,
-        top: 20,
-        width: 40,
-        height: 40,
+        right: 0,
+        top: 0,
+        width: 80,
+        height: 80,
         zIndex: 2,
         elevation: 2,
+        backgroundColor: theme.four,
+        borderRadius: 80 / 2,
+        borderTopRightRadius: 0,
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     buttonIcon: {
-        width: '100%',
-        height: '100%',
+        width: 35,
+        height: 35,
         resizeMode: 'contain'
     },
 });

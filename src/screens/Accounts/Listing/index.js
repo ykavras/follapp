@@ -59,7 +59,6 @@ class AccountsListing extends Component {
                 <TouchableOpacity style={ styles.button } onPress={ () => navigate('Accounts') }>
                     <PlusIcon fill="white" style={ styles.buttonIcon }/>
                 </TouchableOpacity>
-                <View style={ [styles.line, styles.lineTop] }/>
                 <View style={ [styles.line, styles.lineBottom] }/>
                 { this.renderItem(isAccountListing, accountListingErrorMessage, accountListing) }
             </View>

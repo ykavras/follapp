@@ -73,8 +73,8 @@ export default StyleSheet.create({
     },
     line: {
         position: 'absolute',
-        width: width,
-        left: 0,
+        width: width * 2,
+        left: -(width / 2),
         height: 200,
         backgroundColor: theme.accent
     },
